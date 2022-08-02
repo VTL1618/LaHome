@@ -94,6 +94,20 @@
 			path = HeatersControllCell;
 			sourceTree = "<group>";
 		};
+		C93F053D2899A78800D0A6DF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C93F053E2899A79000D0A6DF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C94886312899844F0043654D = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +129,8 @@
 			children = (
 				C9488653289985DE0043654D /* HomeScreen */,
 				C93F052828999C8C00D0A6DF /* DeviceControl */,
+				C93F053D2899A78800D0A6DF /* Models */,
+				C93F053E2899A79000D0A6DF /* Services */,
 				C9488654289985EB0043654D /* Storyboards */,
 				C94886512899858E0043654D /* Supporting Files */,
 				C9488652289985D20043654D /* Resources */,
