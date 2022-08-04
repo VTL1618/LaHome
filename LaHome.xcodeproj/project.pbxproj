@@ -15,6 +15,8 @@
 		C93F05382899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05372899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift */; };
 		C93F053A2899A6A300D0A6DF /* HeatersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05392899A6A300D0A6DF /* HeatersCollectionViewCell.swift */; };
 		C93F053C2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F053B2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift */; };
+		C93F05412899C61A00D0A6DF /* ScenariosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05402899C61A00D0A6DF /* ScenariosCollectionViewCell.swift */; };
+		C93F05432899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05422899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift */; };
 		C948863E2899844F0043654D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948863D2899844F0043654D /* AppDelegate.swift */; };
 		C94886402899844F0043654D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948863F2899844F0043654D /* SceneDelegate.swift */; };
 		C94886422899844F0043654D /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94886412899844F0043654D /* HomeScreenViewController.swift */; };
@@ -33,6 +35,8 @@
 		C93F05372899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttersCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		C93F05392899A6A300D0A6DF /* HeatersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatersCollectionViewCell.swift; sourceTree = "<group>"; };
 		C93F053B2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatersCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		C93F05402899C61A00D0A6DF /* ScenariosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenariosCollectionViewCell.swift; sourceTree = "<group>"; };
+		C93F05422899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenariosCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		C948863A2899844F0043654D /* LaHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C948863D2899844F0043654D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C948863F2899844F0043654D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,9 +62,6 @@
 		C93F052828999C8C00D0A6DF /* DeviceControl */ = {
 			isa = PBXGroup;
 			children = (
-				C93F052D2899A54000D0A6DF /* LightsControllCell */,
-				C93F052E2899A59000D0A6DF /* ShuttersControllCell */,
-				C93F052F2899A5B900D0A6DF /* HeatersControllCell */,
 				C93F052928999CCA00D0A6DF /* DeviceControlViewController.swift */,
 				C93F052B28999CDF00D0A6DF /* DeviceControlViewModel.swift */,
 			);
@@ -106,6 +107,15 @@
 			children = (
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C93F053F2899C5D300D0A6DF /* ScenariosCell */ = {
+			isa = PBXGroup;
+			children = (
+				C93F05402899C61A00D0A6DF /* ScenariosCollectionViewCell.swift */,
+				C93F05422899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift */,
+			);
+			path = ScenariosCell;
 			sourceTree = "<group>";
 		};
 		C94886312899844F0043654D = {
@@ -159,6 +169,10 @@
 		C9488653289985DE0043654D /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
+				C93F053F2899C5D300D0A6DF /* ScenariosCell */,
+				C93F052D2899A54000D0A6DF /* LightsControllCell */,
+				C93F052E2899A59000D0A6DF /* ShuttersControllCell */,
+				C93F052F2899A5B900D0A6DF /* HeatersControllCell */,
 				C94886412899844F0043654D /* HomeScreenViewController.swift */,
 				C9488655289986C50043654D /* HomeScreenViewModel.swift */,
 			);
@@ -252,7 +266,9 @@
 				C93F052A28999CCA00D0A6DF /* DeviceControlViewController.swift in Sources */,
 				C94886422899844F0043654D /* HomeScreenViewController.swift in Sources */,
 				C93F052C28999CDF00D0A6DF /* DeviceControlViewModel.swift in Sources */,
+				C93F05412899C61A00D0A6DF /* ScenariosCollectionViewCell.swift in Sources */,
 				C93F05382899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift in Sources */,
+				C93F05432899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift in Sources */,
 				C9488656289986C50043654D /* HomeScreenViewModel.swift in Sources */,
 				C948863E2899844F0043654D /* AppDelegate.swift in Sources */,
 				C94886402899844F0043654D /* SceneDelegate.swift in Sources */,
