@@ -15,8 +15,8 @@
 		C93F05382899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05372899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift */; };
 		C93F053A2899A6A300D0A6DF /* HeatersCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05392899A6A300D0A6DF /* HeatersCollectionViewCell.swift */; };
 		C93F053C2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F053B2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift */; };
-		C93F05412899C61A00D0A6DF /* ScenariosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05402899C61A00D0A6DF /* ScenariosCollectionViewCell.swift */; };
-		C93F05432899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05422899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift */; };
+		C93F05412899C61A00D0A6DF /* DevicesListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05402899C61A00D0A6DF /* DevicesListCollectionViewCell.swift */; };
+		C93F05432899C63600D0A6DF /* DevicesListCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05422899C63600D0A6DF /* DevicesListCollectionViewCellViewModel.swift */; };
 		C948863E2899844F0043654D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948863D2899844F0043654D /* AppDelegate.swift */; };
 		C94886402899844F0043654D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948863F2899844F0043654D /* SceneDelegate.swift */; };
 		C94886422899844F0043654D /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94886412899844F0043654D /* HomeScreenViewController.swift */; };
@@ -24,6 +24,11 @@
 		C9488647289984570043654D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9488646289984570043654D /* Assets.xcassets */; };
 		C948864A289984570043654D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9488648289984570043654D /* LaunchScreen.storyboard */; };
 		C9488656289986C50043654D /* HomeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9488655289986C50043654D /* HomeScreenViewModel.swift */; };
+		C9916D78289DB6CF00FFBEE6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9916D77289DB6CF00FFBEE6 /* NetworkManager.swift */; };
+		C9916D7A289DB6DE00FFBEE6 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9916D79289DB6DE00FFBEE6 /* ImageManager.swift */; };
+		C9916D7C289DB6E900FFBEE6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9916D7B289DB6E900FFBEE6 /* DataManager.swift */; };
+		C9916D7E289DB72100FFBEE6 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9916D7D289DB72100FFBEE6 /* Device.swift */; };
+		C9916D80289DD8E400FFBEE6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9916D7F289DD8E400FFBEE6 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +40,8 @@
 		C93F05372899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuttersCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		C93F05392899A6A300D0A6DF /* HeatersCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatersCollectionViewCell.swift; sourceTree = "<group>"; };
 		C93F053B2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatersCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
-		C93F05402899C61A00D0A6DF /* ScenariosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenariosCollectionViewCell.swift; sourceTree = "<group>"; };
-		C93F05422899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenariosCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		C93F05402899C61A00D0A6DF /* DevicesListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCollectionViewCell.swift; sourceTree = "<group>"; };
+		C93F05422899C63600D0A6DF /* DevicesListCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		C948863A2899844F0043654D /* LaHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LaHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C948863D2899844F0043654D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C948863F2899844F0043654D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +51,11 @@
 		C9488649289984570043654D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C948864B289984570043654D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9488655289986C50043654D /* HomeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewModel.swift; sourceTree = "<group>"; };
+		C9916D77289DB6CF00FFBEE6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C9916D79289DB6DE00FFBEE6 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		C9916D7B289DB6E900FFBEE6 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		C9916D7D289DB72100FFBEE6 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		C9916D7F289DD8E400FFBEE6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +108,8 @@
 		C93F053D2899A78800D0A6DF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9916D7D289DB72100FFBEE6 /* Device.swift */,
+				C9916D7F289DD8E400FFBEE6 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -105,6 +117,9 @@
 		C93F053E2899A79000D0A6DF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C9916D77289DB6CF00FFBEE6 /* NetworkManager.swift */,
+				C9916D79289DB6DE00FFBEE6 /* ImageManager.swift */,
+				C9916D7B289DB6E900FFBEE6 /* DataManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -112,8 +127,8 @@
 		C93F053F2899C5D300D0A6DF /* ScenariosCell */ = {
 			isa = PBXGroup;
 			children = (
-				C93F05402899C61A00D0A6DF /* ScenariosCollectionViewCell.swift */,
-				C93F05422899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift */,
+				C93F05402899C61A00D0A6DF /* DevicesListCollectionViewCell.swift */,
+				C93F05422899C63600D0A6DF /* DevicesListCollectionViewCellViewModel.swift */,
 			);
 			path = ScenariosCell;
 			sourceTree = "<group>";
@@ -262,17 +277,22 @@
 				C93F05332899A65C00D0A6DF /* LightsCollectionViewCellViewModel.swift in Sources */,
 				C93F053A2899A6A300D0A6DF /* HeatersCollectionViewCell.swift in Sources */,
 				C93F053C2899A6B600D0A6DF /* HeatersCollectionViewCellViewModel.swift in Sources */,
+				C9916D7E289DB72100FFBEE6 /* Device.swift in Sources */,
 				C93F05362899A67C00D0A6DF /* ShuttersCollectionViewCell.swift in Sources */,
 				C93F052A28999CCA00D0A6DF /* DeviceControlViewController.swift in Sources */,
 				C94886422899844F0043654D /* HomeScreenViewController.swift in Sources */,
 				C93F052C28999CDF00D0A6DF /* DeviceControlViewModel.swift in Sources */,
-				C93F05412899C61A00D0A6DF /* ScenariosCollectionViewCell.swift in Sources */,
+				C93F05412899C61A00D0A6DF /* DevicesListCollectionViewCell.swift in Sources */,
 				C93F05382899A68C00D0A6DF /* ShuttersCollectionViewCellViewModel.swift in Sources */,
-				C93F05432899C63600D0A6DF /* ScenariosCollectionViewCellViewModel.swift in Sources */,
+				C9916D7C289DB6E900FFBEE6 /* DataManager.swift in Sources */,
+				C93F05432899C63600D0A6DF /* DevicesListCollectionViewCellViewModel.swift in Sources */,
 				C9488656289986C50043654D /* HomeScreenViewModel.swift in Sources */,
+				C9916D7A289DB6DE00FFBEE6 /* ImageManager.swift in Sources */,
 				C948863E2899844F0043654D /* AppDelegate.swift in Sources */,
+				C9916D78289DB6CF00FFBEE6 /* NetworkManager.swift in Sources */,
 				C94886402899844F0043654D /* SceneDelegate.swift in Sources */,
 				C93F05312899A63F00D0A6DF /* LightsCollectionViewCell.swift in Sources */,
+				C9916D80289DD8E400FFBEE6 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -404,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -429,6 +449,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -457,6 +478,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

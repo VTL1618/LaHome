@@ -12,22 +12,24 @@ class HomeScreenViewController: UIViewController {
     let scrollView = UIScrollView()
     let contentView = UIView()
     
-    var scenariosCollectionView: UICollectionView!
+    var devicesListCollectionView: UICollectionView!
+    var titleForDevicesList: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         setupScrollView()
-        setupScenariosCollectionView()
+        setupDevicesListCollectionView()
     }
     
     private func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
-        scrollView.backgroundColor = .lightGray
-        contentView.backgroundColor = .green
+        scrollView.backgroundColor = .clear
+        contentView.backgroundColor = .clear
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -44,53 +46,70 @@ class HomeScreenViewController: UIViewController {
         contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
     
-    private func setupScenariosCollectionView() {
+    private func setupDevicesListCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
+        layout.itemSize = CGSize(width: (view.frame.width - 16 - 32) / 3,
+                                 height: (view.frame.width - 16 - 32) / 3)
         
-        scenariosCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        scenariosCollectionView.backgroundColor = .cyan
-        scenariosCollectionView.showsHorizontalScrollIndicator = false
-        scenariosCollectionView.isScrollEnabled = true
-        scenariosCollectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        scenariosCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        devicesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        devicesListCollectionView.backgroundColor = .cyan
+        devicesListCollectionView.showsHorizontalScrollIndicator = false
+        devicesListCollectionView.showsVerticalScrollIndicator = false
+        devicesListCollectionView.contentInset = UIEdgeInsets(top: 0,
+                                                              left: 16,
+                                                              bottom: 0,
+                                                              right: 16)
+        
+        devicesListCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleForDevicesList = UILabel()
+        titleForDevicesList.textColor = .gray
+        titleForDevicesList.font = UIFont(name: "avenir", size: 20)
+        titleForDevicesList.text = "Devices"
+        titleForDevicesList.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.addSubview(scenariosCollectionView)
+        contentView.addSubview(titleForDevicesList)
+        contentView.addSubview(devicesListCollectionView)
         
-        scenariosCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        scenariosCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        scenariosCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        scenariosCollectionView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        titleForDevicesList.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        titleForDevicesList.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
+        titleForDevicesList.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+        titleForDevicesList.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-//        scenariosCollectionView.register(ScenariosCollectionViewCell.self, forCellWithReuseIdentifier: ScenariosCollectionViewCell.reuseId)
-        scenariosCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        scenariosCollectionView.dataSource = self
-        scenariosCollectionView.delegate = self
+        devicesListCollectionView.topAnchor.constraint(equalTo: titleForDevicesList.bottomAnchor, constant: 0).isActive = true
+        devicesListCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        devicesListCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        devicesListCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        
+        devicesListCollectionView.register(DevicesListCollectionViewCell.self, forCellWithReuseIdentifier: DevicesListCollectionViewCell.reuseId)
+//        devicesListCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+
+        devicesListCollectionView.dataSource = self
+        devicesListCollectionView.delegate = self
     }
-    
 }
 
 // MARK: - Collection View DataSource
 extension HomeScreenViewController: UICollectionViewDataSource {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        50
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScenariosCollectionViewCell.reuseId, for: indexPath) as! ScenariosCollectionViewCell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         cell.backgroundColor = .orange
         cell.clipsToBounds = true
 
         return cell
     }
-    
 }
 
 // MARK: - Collection View Delegate
@@ -101,10 +120,10 @@ extension HomeScreenViewController: UICollectionViewDataSource {
 // MARK: - Collection View DelegateFlowLayout
 extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        return CGSize(width: collectionView.frame.width * 0.6, height: (collectionView.frame.height - 8) / 2)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        return CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3)
+//    }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 //
