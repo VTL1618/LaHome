@@ -27,9 +27,10 @@ class NetworkManager {
             
             do {
                 let decoder = JSONDecoder()
-                let devices = try decoder.decode([Device].self, from: data)
+                let devices = try decoder.decode(Response.self, from: data)
+                print("\(devices.devices)")
                 DispatchQueue.main.async {
-                    completion(devices)
+                    completion(devices.devices)
                 }
             } catch let error {
                 print("Error of serialization JSON", error)

@@ -8,16 +8,16 @@
 import Foundation
 
 struct User: Codable {
-    let firstName: String?
-    let lastName: String?
-    let adress: Adress?
-    let birthDate: Int?
+    let firstName: String
+    let lastName: String
+    let address: Address
+    let birthDate: Int
 }
 
-struct Adress: Codable {
-    let city: String?
-    let postalCode: Int?
-    let street: String?
-    let streetCode: String?
-    let country: String?
+struct Address: Codable {
+    let city: String
+    let postalCode: Int
+    let street: String
+    let streetCode: String
+    let country: String
 }

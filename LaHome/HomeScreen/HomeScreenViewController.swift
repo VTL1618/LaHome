@@ -15,12 +15,15 @@ class HomeScreenViewController: UIViewController {
     var devicesListCollectionView: UICollectionView!
     var titleForDevicesList: UILabel!
     
+    private var devices: [Device] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         setupScrollView()
         setupDevicesListCollectionView()
+        getDevices()
     }
     
     private func setupScrollView() {
@@ -91,19 +94,31 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.dataSource = self
         devicesListCollectionView.delegate = self
     }
+    
+    private func getDevices() {
+        NetworkManager.shared.fetchData { devices in
+            self.devices = devices
+            DispatchQueue.main.async {
+                self.devicesListCollectionView.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - Collection View DataSource
 extension HomeScreenViewController: UICollectionViewDataSource {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        50
+        return devices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
 //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        
+        let device = devices[indexPath.item]
+        cell.setCell(with: device)
         
         cell.backgroundColor = .orange
         cell.clipsToBounds = true

@@ -8,16 +8,16 @@
 import Foundation
 
 struct Device: Codable {
-    let id: Int?
-    let deviceName: String?
+    let id: Int
+    let deviceName: String
     let intensity: Int?
     let mode: String?
     let position: Int?
     let temperature: Int?
-    let productType: String?
+    let productType: String
 }
 
 struct Response: Codable {
-    var devices: [Device]?
-    let user: User?
+    var devices: [Device]
+    let user: User
 }

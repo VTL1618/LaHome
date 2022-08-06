@@ -11,6 +11,8 @@ class DevicesListCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "deviceCell"
     
+//    private var device: Device
+    
     private let deviceImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "phone")
@@ -20,7 +22,7 @@ class DevicesListCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let deviceName: UILabel = {
+    private var deviceName: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -30,7 +32,7 @@ class DevicesListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let deviceState: UILabel = {
+    private var deviceState: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
@@ -75,4 +77,32 @@ class DevicesListCollectionViewCell: UICollectionViewCell {
         deviceState.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    func setCell(with device: Device) {
+
+        // Set device Name
+        self.deviceName.text = device.deviceName
+        
+        // Set device State
+        if let state = device.intensity {
+            self.deviceState.text = "\(state)%"
+        }
+        if let state = device.position {
+            self.deviceState.text = "position: \(state)"
+        }
+        if let state = device.temperature {
+            self.deviceState.text = "\(state)°"
+        }
+        
+        // Set device Image
+        switch device.productType {
+        case "Light":
+            self.deviceImage.image = UIImage(named: "DeviceLightOnIcon")
+        case "RollerShutter":
+            self.deviceImage.image = UIImage(named: "DeviceRollerShutterIcon")
+        case "Heater":
+            self.deviceImage.image = UIImage(named: "DeviceHeaterOnIcon")
+        default:
+            self.deviceImage.image = UIImage(systemName: "house")
+        }
+    }
 }
