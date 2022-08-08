@@ -17,6 +17,8 @@ class HomeScreenViewController: UIViewController {
     
     private var devices: [Device] = []
     
+    var didSelectHandler: ((Device) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,7 +61,6 @@ class HomeScreenViewController: UIViewController {
                                  height: (view.frame.width - 16 - 32) / 3)
         
         devicesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        devicesListCollectionView.backgroundColor = .cyan
         devicesListCollectionView.showsHorizontalScrollIndicator = false
         devicesListCollectionView.showsVerticalScrollIndicator = false
         devicesListCollectionView.contentInset = UIEdgeInsets(top: 0,
@@ -89,7 +90,6 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         
         devicesListCollectionView.register(DevicesListCollectionViewCell.self, forCellWithReuseIdentifier: DevicesListCollectionViewCell.reuseId)
-//        devicesListCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
         devicesListCollectionView.dataSource = self
         devicesListCollectionView.delegate = self
@@ -115,13 +115,22 @@ extension HomeScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
         let device = devices[indexPath.item]
         cell.setCell(with: device)
         
         cell.backgroundColor = .orange
         cell.clipsToBounds = true
+        
+        didSelectHandler = { [weak self] device in
+            
+            let deviceController = DeviceControlViewController()
+            deviceController.navigationItem.title = device.deviceName
+            deviceController.device = device
+            
+            self?.navigationController?.pushViewController(deviceController, animated: true)
+            
+        }
 
         return cell
     }
@@ -134,6 +143,12 @@ extension HomeScreenViewController: UICollectionViewDataSource {
 
 // MARK: - Collection View DelegateFlowLayout
 extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let device = devices[indexPath.item]
+        print(device.deviceName)
+        didSelectHandler?(device)
+    }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //

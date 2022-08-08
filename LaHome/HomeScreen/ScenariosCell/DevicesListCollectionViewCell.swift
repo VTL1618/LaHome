@@ -10,9 +10,7 @@ import UIKit
 class DevicesListCollectionViewCell: UICollectionViewCell {
     
     static let reuseId = "deviceCell"
-    
-//    private var device: Device
-    
+        
     private let deviceImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "phone")

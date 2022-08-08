@@ -15,27 +15,60 @@ class DataManager {
     
     private init() {}
     
-    func setOnOffState(for device: String, with state: Bool) {
-        userDefaults.set(state, forKey: device)
+    func setOnOffState(for deviceName: String, with state: Bool) {
+        userDefaults.set(state, forKey: deviceName)
     }
     
-    func getOnOffState(for device: String) -> Bool {
-        userDefaults.bool(forKey: device)
+    func getOnOffState(for deviceName: String) -> Bool? {
+        userDefaults.bool(forKey: deviceName)
     }
     
-    func setIntensity(for device: String, with intensity: Int) {
-        userDefaults.set(intensity, forKey: device)
+    func setIntensity(for deviceName: String, with intensity: Int) {
+        userDefaults.set(intensity, forKey: deviceName)
     }
     
-    func getIntensity(for device: String) -> Int {
-        userDefaults.integer(forKey: device)
+    func getIntensity(for deviceName: String) -> Int {
+        userDefaults.integer(forKey: deviceName)
     }
     
-    func setTemperature(for device: String, with temperature: Int) {
-        userDefaults.set(temperature, forKey: device)
+    func setPosition(for deviceName: String, with position: Int) {
+        userDefaults.set(position, forKey: deviceName)
     }
     
-    func getTemperature(for device: String) -> Int {
-        userDefaults.integer(forKey: device)
+    func getPosition(for deviceName: String) -> Int {
+        userDefaults.integer(forKey: deviceName)
+    }
+    
+    func setTemperature(for deviceName: String, with temperature: Int) {
+        userDefaults.set(temperature, forKey: deviceName)
+    }
+    
+    func getTemperature(for deviceName: String) -> Int {
+        userDefaults.integer(forKey: deviceName)
+    }
+    
+    func setStatusForControlPage(for deviceName: String, with state: String) {
+        userDefaults.set(state, forKey: deviceName)
+    }
+    
+    func getStatusForControlPage(for deviceName: String) -> String? {
+        userDefaults.string(forKey: deviceName)
+    }
+    
+    func setSliderValue(for deviceId: String, with value: String) {
+        userDefaults.set(value, forKey: deviceId)
+    }
+    
+    func getSliderValue(for deviceId: String) -> String? {
+        userDefaults.string(forKey: deviceId)
     }
 }
+
+//extension String {
+//    func containsNumbers() -> Bool
+//    {
+//        let numberRegEx = ".*[0-9]+.*"
+//        let testCase = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+//        return testCase.evaluate(with: self)
+//    }
+//}
