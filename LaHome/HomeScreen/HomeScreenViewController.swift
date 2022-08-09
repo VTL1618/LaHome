@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeScreenViewController: UIViewController {
-
+    
     let scrollView = UIScrollView()
     let contentView = UIView()
     
