@@ -15,17 +15,49 @@ class HomeScreenViewController: UIViewController {
     var devicesListCollectionView: UICollectionView!
     var titleForDevicesList: UILabel!
     
-    private var devices: [Device] = []
+    private var viewModel: HomeScreenViewModelProtocol! {
+        didSet {
+            viewModel.fetchDevices {
+                self.devicesListCollectionView.reloadData()
+            }
+        }
+    }
     
-    var didSelectHandler: ((Device) -> ())?
+    var didSelectHandler: ((DeviceControlViewModelProtocol) -> ())?
+    
+    private let primaryColor = UIColor(
+        red: 117/255,
+        green: 207/255,
+        blue: 221/255,
+        alpha: 1
+    )
+    
+    private let secondaryColor = UIColor(
+        red: 107/255,
+        green: 148/255,
+        blue: 230/255,
+        alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        viewModel = HomeScreenViewModel()
+        addVerticalGradientLayer(topColor: primaryColor, bottomColor: secondaryColor)
         setupScrollView()
         setupDevicesListCollectionView()
-        getDevices()
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.devicesListCollectionView.reloadData()
     }
     
     private func setupScrollView() {
@@ -55,12 +87,14 @@ class HomeScreenViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
+//        layout.collectionView?.backgroundColor = .clear
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
         layout.itemSize = CGSize(width: (view.frame.width - 16 - 32) / 3,
                                  height: (view.frame.width - 16 - 32) / 3)
         
         devicesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        devicesListCollectionView.backgroundColor = .clear
         devicesListCollectionView.showsHorizontalScrollIndicator = false
         devicesListCollectionView.showsVerticalScrollIndicator = false
         devicesListCollectionView.contentInset = UIEdgeInsets(top: 0,
@@ -71,7 +105,7 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         titleForDevicesList = UILabel()
-        titleForDevicesList.textColor = .gray
+        titleForDevicesList.textColor = .white
         titleForDevicesList.font = UIFont(name: "avenir", size: 20)
         titleForDevicesList.text = "Devices"
         titleForDevicesList.translatesAutoresizingMaskIntoConstraints = false
@@ -95,38 +129,38 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.delegate = self
     }
     
-    private func getDevices() {
-        NetworkManager.shared.fetchData { devices in
-            self.devices = devices
-            DispatchQueue.main.async {
-                self.devicesListCollectionView.reloadData()
-            }
-        }
-    }
+//    private func getDevices() {
+//        NetworkManager.shared.fetchData { devices in
+//            self.devices = devices
+//            DispatchQueue.main.async {
+//                self.devicesListCollectionView.reloadData()
+//            }
+//        }
+//    }
 }
 
 // MARK: - Collection View DataSource
 extension HomeScreenViewController: UICollectionViewDataSource {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return devices.count
+        return viewModel.numberOfCells()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
         
-        let device = devices[indexPath.item]
-        cell.setCell(with: device)
+        cell.viewModel = viewModel.cellViewModel(at: indexPath)
         
-        cell.backgroundColor = .orange
+        cell.backgroundColor = .white
+        cell.layer.cornerRadius = 15
         cell.clipsToBounds = true
         
         didSelectHandler = { [weak self] device in
             
             let deviceController = DeviceControlViewController()
-            deviceController.navigationItem.title = device.deviceName
-            deviceController.device = device
+            deviceController.navigationItem.title = cell.viewModel.deviceName
+            deviceController.viewModel = device
             
             self?.navigationController?.pushViewController(deviceController, animated: true)
             
@@ -135,33 +169,26 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
-// MARK: - Collection View Delegate
-//extension HomeScreenViewController: UICollectionViewDelegate {
-//
-//}
-
+ 
 // MARK: - Collection View DelegateFlowLayout
 extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let device = devices[indexPath.item]
-        print(device.deviceName)
-        didSelectHandler?(device)
+        
+        let deviceControlViewModel = viewModel.viewModelForSelectedCell(at: indexPath)
+//        print(device.deviceName)
+        didSelectHandler?(deviceControlViewModel)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        return CGSize(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.width / 3)
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//
-//        return 8
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//
-//        return 8
-//    }
+}
+
+extension HomeScreenViewController {
+    func addVerticalGradientLayer(topColor: UIColor, bottomColor: UIColor) {
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+        view.layer.insertSublayer(gradient, at: 0)
+    }
 }

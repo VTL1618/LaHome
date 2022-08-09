@@ -11,11 +11,13 @@ protocol DeviceControlViewModelProtocol: AnyObject {
     var deviceImageName: String { get }
     var deviceModeForStatusBar: String { get }
     var deviceStateForStatusBar: String { get }
+    
     var slider: Float { get }
     var switcherIsHidden: Bool { get }
     var labelOnMode: Bool { get }
     var labelOffMode: Bool { get }
     var isSwitcherOn: Bool { get }
+    var productType: String { get }
     var viewModelDidChange: ((DeviceControlViewModelProtocol) -> Void)? { get set }
     init(device: Device)
     func switcherPressed()
@@ -130,6 +132,10 @@ class DeviceControlViewModel: DeviceControlViewModelProtocol {
             DataManager.shared.setOnOffState(for: device.deviceName, with: newValue)
             viewModelDidChange?(self)
         }
+    }
+    
+    var productType: String {
+        device.productType
     }
     
     var viewModelDidChange: ((DeviceControlViewModelProtocol) -> Void)?

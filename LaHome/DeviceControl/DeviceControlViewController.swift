@@ -9,35 +9,12 @@ import UIKit
 
 class DeviceControlViewController: UIViewController {
     
-    var device: Device! {
-        didSet {
-            print("Device is -", device!)
-        }
-    }
-    
-    var viewModel: DeviceControlViewModelProtocol! {
-        didSet {
-            viewModel.viewModelDidChange = { [unowned self] viewModel in
-                setModeForDeviceImage()
-                setDeviceStateBar()
-                print(viewModel.isSwitcherOn)
-                print(viewModel.deviceModeForStatusBar + viewModel.deviceStateForStatusBar)
-            }
-            deviceImage.image = UIImage(named: viewModel.deviceImageName)
-            deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)"
-            slider.value = viewModel.slider
-            switcher.isOn = viewModel.isSwitcherOn
-            switcher.isHidden = viewModel.switcherIsHidden
-            labelOnMode.isHidden = viewModel.labelOnMode
-            labelOffMode.isHidden = viewModel.labelOffMode
-        }
-    }
+    var viewModel: DeviceControlViewModelProtocol!
     
     private var deviceImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "phone")
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .green
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -48,7 +25,6 @@ class DeviceControlViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textAlignment = .left
         label.text = "On / Off"
-        label.backgroundColor = .red
         return label
     }()
     
@@ -73,8 +49,8 @@ class DeviceControlViewController: UIViewController {
     
     private var labelOnMode: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.text = "—  On"
         label.isHidden = true
@@ -83,8 +59,8 @@ class DeviceControlViewController: UIViewController {
     
     private var labelOffMode: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.text = "Off  —"
         label.isHidden = true
@@ -92,11 +68,26 @@ class DeviceControlViewController: UIViewController {
     }()
     
     private let headerStackView = UIStackView()
+    
+    private let productType: String = ""
+    
+    private let primaryColor = UIColor(
+        red: 117/255,
+        green: 207/255,
+        blue: 221/255,
+        alpha: 1
+    )
+    
+    private let secondaryColor = UIColor(
+        red: 107/255,
+        green: 148/255,
+        blue: 230/255,
+        alpha: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = DeviceControlViewModel(device: device)
+        addVerticalGradientLayer(topColor: primaryColor, bottomColor: secondaryColor)
         
         view.addSubview(headerStackView)
         view.addSubview(slider)
@@ -105,9 +96,6 @@ class DeviceControlViewController: UIViewController {
         view.addSubview(labelOffMode)
 
         view.backgroundColor = .white
-        deviceState.backgroundColor = .green
-        labelOnMode.backgroundColor = .orange
-        labelOffMode.backgroundColor = .orange
         
         configureStackView()
         setElementsToStacks()
@@ -165,6 +153,18 @@ class DeviceControlViewController: UIViewController {
     private func setupUI() {
         setModeForDeviceImage()
         setDeviceStateBar()
+        
+        viewModel.viewModelDidChange = { [unowned self] viewModel in
+            setModeForDeviceImage()
+            setDeviceStateBar()
+        }
+        deviceImage.image = UIImage(named: viewModel.deviceImageName)
+        deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)"
+        slider.value = viewModel.slider
+        switcher.isOn = viewModel.isSwitcherOn
+        switcher.isHidden = viewModel.switcherIsHidden
+        labelOnMode.isHidden = viewModel.labelOnMode
+        labelOffMode.isHidden = viewModel.labelOffMode
     }
     
     @objc func switcherPressed() {
@@ -172,15 +172,28 @@ class DeviceControlViewController: UIViewController {
     }
     
     @objc func handleSliderChange() {
-//        print(slider.value)
         viewModel.sliderChanged(to: slider.value)
     }
     
     private func setModeForDeviceImage() {
-        deviceImage.image = viewModel.isSwitcherOn ? UIImage(named: viewModel.deviceImageName) : ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
+        deviceImage.image = (viewModel.isSwitcherOn || viewModel.productType == "RollerShutter")
+        ? UIImage(named: viewModel.deviceImageName)
+        : ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
     }
     
     private func setDeviceStateBar() {
         deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)"
+    }
+}
+
+extension DeviceControlViewController {
+    func addVerticalGradientLayer(topColor: UIColor, bottomColor: UIColor) {
+        let gradient = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
+        view.layer.insertSublayer(gradient, at: 0)
     }
 }

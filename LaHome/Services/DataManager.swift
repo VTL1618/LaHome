@@ -63,12 +63,3 @@ class DataManager {
         userDefaults.string(forKey: deviceId)
     }
 }
-
-//extension String {
-//    func containsNumbers() -> Bool
-//    {
-//        let numberRegEx = ".*[0-9]+.*"
-//        let testCase = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
-//        return testCase.evaluate(with: self)
-//    }
-//}
