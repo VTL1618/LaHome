@@ -159,11 +159,10 @@ extension HomeScreenViewController: UICollectionViewDataSource {
         didSelectHandler = { [weak self] device in
             
             let deviceController = DeviceControlViewController()
-            deviceController.navigationItem.title = cell.viewModel.deviceName
+            deviceController.navigationItem.title = device.deviceName
             deviceController.viewModel = device
             
             self?.navigationController?.pushViewController(deviceController, animated: true)
-            
         }
 
         return cell
@@ -176,7 +175,7 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let deviceControlViewModel = viewModel.viewModelForSelectedCell(at: indexPath)
-//        print(device.deviceName)
+//        print(viewModel.devices[indexPath.item])
         didSelectHandler?(deviceControlViewModel)
     }
 }

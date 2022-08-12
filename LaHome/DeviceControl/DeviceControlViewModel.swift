@@ -8,6 +8,7 @@
 import Foundation
 
 protocol DeviceControlViewModelProtocol: AnyObject {
+    var deviceName: String { get }
     var deviceImageName: String { get }
     var deviceModeForStatusBar: String { get }
     var deviceStateForStatusBar: String { get }
@@ -25,6 +26,10 @@ protocol DeviceControlViewModelProtocol: AnyObject {
 }
 
 class DeviceControlViewModel: DeviceControlViewModelProtocol {
+    
+    var deviceName: String {
+        device.deviceName
+    }
     
     var deviceImageName: String {
         ImageManager.shared.fetchImageName(by: device.productType)
