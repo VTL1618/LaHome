@@ -35,15 +35,15 @@ class DevicesListCollectionViewCellViewModel: DevicesListCollectionViewCellViewM
             return cachedState
         } else {
             if let state = device.intensity {
-                return "\(state)%"
+                return "\(state)"
             }
             if let state = device.position {
-                return "position: \(state)"
+                return "\(state)"
             }
             if let state = device.temperature {
-                return "\(state)°"
+                return "\(state)"
             }
-            return ""
+            return "0"
         }
     }
     

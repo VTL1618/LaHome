@@ -1,15 +1,15 @@
 //
-//  DeviceControlViewController.swift
+//  LampeControlViewController.swift
 //  LaHome
 //
-//  Created by Vitaly Zubenko on 02.08.2022.
+//  Created by Vitaly Zubenko on 13.08.2022.
 //
 
 import UIKit
 
-class DeviceControlViewController: UIViewController {
+class LampeControlViewController: UIViewController {
     
-    var viewModel: DeviceControlViewModelProtocol!
+    var viewModel: LampeControlViewModelProtocol!
     
     private var deviceImage: UIImageView = {
         let imageView = UIImageView()
@@ -34,6 +34,8 @@ class DeviceControlViewController: UIViewController {
     private var slider: CustomSlider = {
         let slider = CustomSlider()
 //        slider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
+        slider.minimumValue = 0
+        slider.maximumValue = 100
         slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
         return slider
     }()
@@ -41,7 +43,7 @@ class DeviceControlViewController: UIViewController {
     private var switcher: UISwitch = {
         let switcher = UISwitch()
         switcher.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        switcher.isHidden = true
+//        switcher.isHidden = true
         
         switcher.addTarget(self, action: #selector(switcherPressed), for: .valueChanged)
         return switcher
@@ -53,7 +55,7 @@ class DeviceControlViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.text = "—  On"
-        label.isHidden = true
+//        label.isHidden = true
         return label
     }()
     
@@ -63,7 +65,7 @@ class DeviceControlViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.text = "Off  —"
-        label.isHidden = true
+//        label.isHidden = true
         return label
     }()
     
@@ -159,12 +161,12 @@ class DeviceControlViewController: UIViewController {
             setDeviceStateBar()
         }
         deviceImage.image = UIImage(named: viewModel.deviceImageName)
-        deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)"
+        deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)%"
         slider.value = viewModel.slider
         switcher.isOn = viewModel.isSwitcherOn
-        switcher.isHidden = viewModel.switcherIsHidden
-        labelOnMode.isHidden = viewModel.labelOnMode
-        labelOffMode.isHidden = viewModel.labelOffMode
+//        switcher.isHidden = viewModel.switcherIsHidden
+//        labelOnMode.isHidden = viewModel.labelOnMode
+//        labelOffMode.isHidden = viewModel.labelOffMode
     }
     
     @objc func switcherPressed() {
@@ -176,17 +178,24 @@ class DeviceControlViewController: UIViewController {
     }
     
     private func setModeForDeviceImage() {
-        deviceImage.image = viewModel.isSwitcherOn
-        ? UIImage(named: viewModel.deviceImageName)
-        : ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
+//        deviceImage.image = viewModel.isSwitcherOn
+//        ? UIImage(named: viewModel.deviceImageName)
+//        : ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
+        if viewModel.isSwitcherOn == true {
+            deviceImage.image = UIImage(named: viewModel.deviceImageName)
+        } else {
+            DispatchQueue.main.async {
+                self.deviceImage.image = ImageManager.shared.convertToGrayScale(image: UIImage(named: self.viewModel.deviceImageName)!)
+            }
+        }
     }
     
     private func setDeviceStateBar() {
-        deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)"
+        deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)%"
     }
 }
 
-extension DeviceControlViewController {
+extension LampeControlViewController {
     func addVerticalGradientLayer(topColor: UIColor, bottomColor: UIColor) {
         let gradient = CAGradientLayer()
         gradient.frame = view.bounds

@@ -11,9 +11,11 @@ class HomeScreenViewController: UIViewController {
     
     let scrollView = UIScrollView()
     let contentView = UIView()
-    
+        
     var devicesListCollectionView: UICollectionView!
     var titleForDevicesList: UILabel!
+    
+    private var sectionNow = Int()
     
     private var viewModel: HomeScreenViewModelProtocol! {
         didSet {
@@ -24,6 +26,7 @@ class HomeScreenViewController: UIViewController {
     }
     
     var didSelectHandler: ((DeviceControlViewModelProtocol) -> ())?
+    var didSelectHandlerLampe: ((LampeControlViewModelProtocol) -> ())?
     
     private let primaryColor = UIColor(
         red: 117/255,
@@ -90,17 +93,17 @@ class HomeScreenViewController: UIViewController {
 //        layout.collectionView?.backgroundColor = .clear
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
-        layout.itemSize = CGSize(width: (view.frame.width - 16 - 32) / 3,
-                                 height: (view.frame.width - 16 - 32) / 3)
+//        layout.itemSize = CGSize(width: (view.frame.width - 16 - 32) / 3,
+//                                 height: (view.frame.width - 16 - 32) / 3)
         
         devicesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         devicesListCollectionView.backgroundColor = .clear
         devicesListCollectionView.showsHorizontalScrollIndicator = false
         devicesListCollectionView.showsVerticalScrollIndicator = false
-        devicesListCollectionView.contentInset = UIEdgeInsets(top: 0,
-                                                              left: 16,
-                                                              bottom: 0,
-                                                              right: 16)
+//        devicesListCollectionView.contentInset = UIEdgeInsets(top: 0,
+//                                                              left: 16,
+//                                                              bottom: 0,
+//                                                              right: 16)
         
         devicesListCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -124,6 +127,7 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         
         devicesListCollectionView.register(DevicesListCollectionViewCell.self, forCellWithReuseIdentifier: DevicesListCollectionViewCell.reuseId)
+        devicesListCollectionView.register(LampesListCollectionViewCell.self, forCellWithReuseIdentifier: LampesListCollectionViewCell.reuseId)
 
         devicesListCollectionView.dataSource = self
         devicesListCollectionView.delegate = self
@@ -142,30 +146,68 @@ class HomeScreenViewController: UIViewController {
 // MARK: - Collection View DataSource
 extension HomeScreenViewController: UICollectionViewDataSource {
    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfCells()
+        
+        if section == 0 {
+            self.sectionNow = section
+            return viewModel.numberOfCells()
+        } else {
+            self.sectionNow = section
+            return viewModel.numberOfCellsLampe()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
-        
-        cell.viewModel = viewModel.cellViewModel(at: indexPath)
-        
-        cell.backgroundColor = .white
-        cell.layer.cornerRadius = 15
-        cell.clipsToBounds = true
-        
-        didSelectHandler = { [weak self] device in
+        if indexPath.section == 0 {
             
-            let deviceController = DeviceControlViewController()
-            deviceController.navigationItem.title = device.deviceName
-            deviceController.viewModel = device
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
             
-            self?.navigationController?.pushViewController(deviceController, animated: true)
+            cell.viewModel = viewModel.cellViewModel(at: indexPath)
+            
+            cell.backgroundColor = .white
+            cell.layer.cornerRadius = 15
+            cell.clipsToBounds = true
+            
+            didSelectHandler = { [weak self] device in
+                
+                let deviceController = DeviceControlViewController()
+                deviceController.navigationItem.title = device.deviceName
+                deviceController.viewModel = device
+                
+                self?.navigationController?.pushViewController(deviceController, animated: true)
+            }
+            
+            return cell
+            
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LampesListCollectionViewCell.reuseId, for: indexPath) as! LampesListCollectionViewCell
+            
+            cell.viewModel = viewModel.cellViewModelLampe(at: indexPath)
+            
+            cell.backgroundColor = .white
+            cell.layer.cornerRadius = 15
+            cell.clipsToBounds = true
+            
+            didSelectHandlerLampe = { [weak self] device in
+                
+                let deviceController = LampeControlViewController()
+                deviceController.navigationItem.title = device.deviceName
+                deviceController.viewModel = device
+                
+                self?.navigationController?.pushViewController(deviceController, animated: true)
+            }
+            
+            return cell
         }
-
-        return cell
+//        else {
+//            return cell
+//        }
     }
 }
  
@@ -174,9 +216,42 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let deviceControlViewModel = viewModel.viewModelForSelectedCell(at: indexPath)
-//        print(viewModel.devices[indexPath.item])
-        didSelectHandler?(deviceControlViewModel)
+        if indexPath.section == 0 {
+            let deviceControlViewModel = viewModel.viewModelForSelectedCell(at: indexPath)
+    //        print(viewModel.devices[indexPath.item])
+            didSelectHandler?(deviceControlViewModel)
+        } else {
+            let deviceControlViewModel = viewModel.viewModelForSelectedCellLampe(at: indexPath)
+    //        print(viewModel.devices[indexPath.item])
+            didSelectHandlerLampe?(deviceControlViewModel)
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if indexPath.section == 0 {
+            return CGSize(width: (view.frame.width - 16 - 32) / 3,
+                   height: (view.frame.width - 16 - 32) / 3)
+        } else {
+            return CGSize(width: (view.frame.width - 16 - 32) / 3,
+                   height: (view.frame.width - 16 - 32) / 3)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        if section == 0 {
+            return UIEdgeInsets(top: 0,
+                                left: 16,
+                                bottom: 0,
+                                right: 16)
+        } else {
+            return UIEdgeInsets(top: 20,
+                                left: 16,
+                                bottom: 0,
+                                right: 16)
+        }
     }
 }
 

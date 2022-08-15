@@ -20,7 +20,7 @@ class DevicesListCollectionViewCell: UICollectionViewCell {
             deviceName.text = viewModel.deviceName
             
             // Set device State
-            deviceState.text = viewModel.deviceState
+            deviceState.text = "\(viewModel.deviceState)"
             
             setModeForDeviceImage()
         }
@@ -60,7 +60,7 @@ class DevicesListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(deviceName)
         contentView.addSubview(deviceState)
         
-//        contentView.backgroundColor = .lightGray
+        contentView.backgroundColor = .lightGray
         contentView.clipsToBounds = true
     }
     

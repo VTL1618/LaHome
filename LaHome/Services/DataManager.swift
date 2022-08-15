@@ -23,37 +23,37 @@ class DataManager {
         userDefaults.bool(forKey: deviceName)
     }
     
-    func setIntensity(for deviceName: String, with intensity: Int) {
-        userDefaults.set(intensity, forKey: deviceName)
-    }
+//    func setIntensity(for deviceName: String, with intensity: Int) {
+//        userDefaults.set(intensity, forKey: deviceName)
+//    }
+//
+//    func getIntensity(for deviceName: String) -> Int {
+//        userDefaults.integer(forKey: deviceName)
+//    }
     
-    func getIntensity(for deviceName: String) -> Int {
-        userDefaults.integer(forKey: deviceName)
-    }
+//    func setPosition(for deviceName: String, with position: Int) {
+//        userDefaults.set(position, forKey: deviceName)
+//    }
+//
+//    func getPosition(for deviceName: String) -> Int {
+//        userDefaults.integer(forKey: deviceName)
+//    }
     
-    func setPosition(for deviceName: String, with position: Int) {
-        userDefaults.set(position, forKey: deviceName)
-    }
+//    func setTemperature(for deviceName: String, with temperature: Int) {
+//        userDefaults.set(temperature, forKey: deviceName)
+//    }
+//
+//    func getTemperature(for deviceName: String) -> Int {
+//        userDefaults.integer(forKey: deviceName)
+//    }
     
-    func getPosition(for deviceName: String) -> Int {
-        userDefaults.integer(forKey: deviceName)
-    }
-    
-    func setTemperature(for deviceName: String, with temperature: Int) {
-        userDefaults.set(temperature, forKey: deviceName)
-    }
-    
-    func getTemperature(for deviceName: String) -> Int {
-        userDefaults.integer(forKey: deviceName)
-    }
-    
-    func setStatusForControlPage(for deviceName: String, with state: String) {
-        userDefaults.set(state, forKey: deviceName)
-    }
-    
-    func getStatusForControlPage(for deviceName: String) -> String? {
-        userDefaults.string(forKey: deviceName)
-    }
+//    func setStatusForControlPage(for deviceName: String, with state: String) {
+//        userDefaults.set(state, forKey: deviceName)
+//    }
+//    
+//    func getStatusForControlPage(for deviceName: String) -> String? {
+//        userDefaults.string(forKey: deviceName)
+//    }
     
     func setSliderValue(for deviceId: String, with value: String) {
         userDefaults.set(value, forKey: deviceId)

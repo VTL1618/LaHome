@@ -1,31 +1,31 @@
 //
-//  DeviceControlViewModel.swift
+//  LampeControlViewModel.swift
 //  LaHome
 //
-//  Created by Vitaly Zubenko on 02.08.2022.
+//  Created by Vitaly Zubenko on 13.08.2022.
 //
 
 import Foundation
 
-protocol DeviceControlViewModelProtocol: AnyObject {
+protocol LampeControlViewModelProtocol: AnyObject {
     var deviceName: String { get }
     var deviceImageName: String { get }
     var deviceModeForStatusBar: String { get }
     var deviceStateForStatusBar: String { get }
     
     var slider: Float { get }
-    var switcherIsHidden: Bool { get }
-    var labelOnMode: Bool { get }
-    var labelOffMode: Bool { get }
+//    var switcherIsHidden: Bool { get }
+//    var labelOnMode: Bool { get }
+//    var labelOffMode: Bool { get }
     var isSwitcherOn: Bool { get }
     var productType: String { get }
-    var viewModelDidChange: ((DeviceControlViewModelProtocol) -> Void)? { get set }
-    init(device: Device)
+    var viewModelDidChange: ((LampeControlViewModelProtocol) -> Void)? { get set }
+    init(device: Lampe)
     func switcherPressed()
     func sliderChanged(to value: Float)
 }
 
-class DeviceControlViewModel: DeviceControlViewModelProtocol {
+class LampeControlViewModel: LampeControlViewModelProtocol {
     
     var deviceName: String {
         device.deviceName
@@ -37,10 +37,11 @@ class DeviceControlViewModel: DeviceControlViewModelProtocol {
     
     var deviceModeForStatusBar: String {
         
-        if let cacheMode = DataManager.shared.getOnOffState(for: device.deviceName) {
-            return cacheMode ? "ON • " : "OFF • "
+        if UserDefaults.standard.object(forKey: device.deviceName) != nil {
+            let cacheMode = DataManager.shared.getOnOffState(for: device.deviceName)
+            return cacheMode! ? "ON • " : "OFF • "
             
-        } else if device.mode != nil {
+        } else {
             var mode = String()
             
             switch device.mode {
@@ -52,30 +53,28 @@ class DeviceControlViewModel: DeviceControlViewModelProtocol {
                 break
             }
             return mode
-            
-        } else {
-            return ""
         }
     }
     
     var deviceStateForStatusBar: String {
         get {
-            if let cacheMode = DataManager.shared.getSliderValue(for: String(device.id)) {
+            
+            if UserDefaults.standard.object(forKey: String(device.id)) != nil {
+                let cacheMode = DataManager.shared.getSliderValue(for: String(device.id))
+                return cacheMode!
                 
-                return "\(cacheMode)"
             } else {
-                var status = String()
+//                var status = String()
                 
-                if let state = device.intensity {
-                    status = "\(state)"
-                }
-                if let state = device.position {
-                    status = "\(state)"
-                }
-                if let state = device.temperature {
-                    status = "\(state)"
-                }
-                return status
+                guard let state = device.intensity else { return "0" }
+                
+//                if let state = device.position {
+//                    status = "position: \(state)"
+//                }
+//                if let state = device.temperature {
+//                    status = "\(state)°"
+//                }
+                return "\(state)"
             }
         } set {
             DataManager.shared.setSliderValue(for: String(device.id), with: newValue)
@@ -87,29 +86,29 @@ class DeviceControlViewModel: DeviceControlViewModelProtocol {
         if let value = DataManager.shared.getSliderValue(for: String(device.id)) {
             return Float(value)!
         }
-        return Float((device.intensity ?? device.position ?? device.temperature)!) / 100
+        return Float(device.intensity ?? 0)
     }
     
-    var switcherIsHidden: Bool {
-        if device.mode != nil {
-            return false
-        }
-        return true
-    }
+//    var switcherIsHidden: Bool {
+//        if device.mode != nil {
+//            return false
+//        }
+//        return true
+//    }
     
-    var labelOnMode: Bool {
-        if device.mode != nil {
-            return false
-        }
-        return true
-    }
+//    var labelOnMode: Bool {
+//        if device.mode != nil {
+//            return false
+//        }
+//        return true
+//    }
     
-    var labelOffMode: Bool {
-        if device.mode != nil {
-            return false
-        }
-        return true
-    }
+//    var labelOffMode: Bool {
+//        if device.mode != nil {
+//            return false
+//        }
+//        return true
+//    }
     
     var isSwitcherOn: Bool {
         get {
@@ -139,11 +138,11 @@ class DeviceControlViewModel: DeviceControlViewModelProtocol {
         device.productType
     }
     
-    var viewModelDidChange: ((DeviceControlViewModelProtocol) -> Void)?
+    var viewModelDidChange: ((LampeControlViewModelProtocol) -> Void)?
     
-    private let device: Device
+    private let device: Lampe
     
-    required init(device: Device) {
+    required init(device: Lampe) {
         self.device = device
     }
     
@@ -152,16 +151,16 @@ class DeviceControlViewModel: DeviceControlViewModelProtocol {
     }
     
     func sliderChanged(to value: Float) {
-        let valueToInt = Int(value * 100)
         
-        if device.intensity != nil {
-            deviceStateForStatusBar = "\(valueToInt)"
-        }
-        if device.position != nil {
-            deviceStateForStatusBar = "\(valueToInt)"
-        }
-        if device.temperature != nil {
-            deviceStateForStatusBar = "\(valueToInt)"
-        }
+        let valueToInt = Int(value)
+//        deviceStateForStatusBar = "\(valueToInt)%"
+        deviceStateForStatusBar = "\(valueToInt)"
+        
+//        if device.position != nil {
+//            deviceStateForStatusBar = "position: \(valueToInt)"
+//        }
+//        if device.temperature != nil {
+//            deviceStateForStatusBar = "\(valueToInt)°"
+//        }
     }
 }

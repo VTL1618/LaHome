@@ -16,8 +16,3 @@ struct Device: Codable {
     let temperature: Int?
     let productType: String
 }
-
-struct Response: Codable {
-    var devices: [Device]
-    let user: User
-}
