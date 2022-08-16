@@ -23,9 +23,9 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-    var didSelectHandlerLampe: ((LampeControlViewModelProtocol) -> ())?
-    var didSelectHandlerRoulant: ((RoulantControlViewModelProtocol) -> ())?
-    var didSelectHandlerRadiateur: ((RadiateurControlViewModelProtocol) -> ())?
+//    var didSelectHandlerLampe: ((LampeControlViewModelProtocol) -> ())?
+//    var didSelectHandlerRoulant: ((RoulantControlViewModelProtocol) -> ())?
+//    var didSelectHandlerRadiateur: ((RadiateurControlViewModelProtocol) -> ())?
     
     private let primaryColor = UIColor(
         red: 117/255,
@@ -157,14 +157,14 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true
             
-            didSelectHandlerLampe = { [weak self] device in
-                
-                let deviceController = LampeControlViewController()
-                deviceController.navigationItem.title = NSLocalizedString("lampes_deviceName_\(device.deviceName)", comment: "")
-                deviceController.viewModel = device
-                
-                self?.navigationController?.pushViewController(deviceController, animated: true)
-            }
+//            didSelectHandlerLampe = { [weak self] device in
+//
+//                let deviceController = LampeControlViewController()
+//                deviceController.navigationItem.title = NSLocalizedString("lampes_deviceName_\(device.deviceName)", comment: "")
+//                deviceController.viewModel = device
+//
+//                self?.navigationController?.pushViewController(deviceController, animated: true)
+//            }
             
             return cell
             
@@ -178,14 +178,14 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true
             
-            didSelectHandlerRoulant = { [weak self] device in
-                
-                let deviceController = RoulantControlViewController()
-                deviceController.navigationItem.title = NSLocalizedString("roulants_deviceName_\(device.deviceName)", comment: "")
-                deviceController.viewModel = device
-                
-                self?.navigationController?.pushViewController(deviceController, animated: true)
-            }
+//            didSelectHandlerRoulant = { [weak self] device in
+//
+//                let deviceController = RoulantControlViewController()
+//                deviceController.navigationItem.title = NSLocalizedString("roulants_deviceName_\(device.deviceName)", comment: "")
+//                deviceController.viewModel = device
+//
+//                self?.navigationController?.pushViewController(deviceController, animated: true)
+//            }
             
             return cell
             
@@ -199,14 +199,14 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true
             
-            didSelectHandlerRadiateur = { [weak self] device in
-                
-                let deviceController = RadiateurControlViewController()
-                deviceController.navigationItem.title = NSLocalizedString("radiateurs_deviceName_\(device.deviceName)", comment: "")
-                deviceController.viewModel = device
-                
-                self?.navigationController?.pushViewController(deviceController, animated: true)
-            }
+//            didSelectHandlerRadiateur = { [weak self] device in
+//
+//                let deviceController = RadiateurControlViewController()
+//                deviceController.navigationItem.title = NSLocalizedString("radiateurs_deviceName_\(device.deviceName)", comment: "")
+//                deviceController.viewModel = device
+//
+//                self?.navigationController?.pushViewController(deviceController, animated: true)
+//            }
             
             return cell
         }
@@ -219,16 +219,35 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.section == 0 {
+            
             let deviceControlViewModel = viewModel.viewModelForSelectedCellLampe(at: indexPath)
-            didSelectHandlerLampe?(deviceControlViewModel)
+            
+            let deviceController = LampeControlViewController()
+            deviceController.navigationItem.title = NSLocalizedString("lampes_deviceName_\(deviceControlViewModel.deviceName)", comment: "")
+            deviceController.viewModel = deviceControlViewModel
+            
+            self.navigationController?.pushViewController(deviceController, animated: true)
+            
         } else if indexPath.section == 1 {
+            
             let deviceControlViewModel = viewModel.viewModelForSelectedCellRoulant(at: indexPath)
-            didSelectHandlerRoulant?(deviceControlViewModel)
+            
+            let deviceController = RoulantControlViewController()
+            deviceController.navigationItem.title = NSLocalizedString("roulants_deviceName_\(deviceControlViewModel.deviceName)", comment: "")
+            deviceController.viewModel = deviceControlViewModel
+            
+            self.navigationController?.pushViewController(deviceController, animated: true)
+            
         } else {
+            
             let deviceControlViewModel = viewModel.viewModelForSelectedCellRadiateur(at: indexPath)
-            didSelectHandlerRadiateur?(deviceControlViewModel)
+            
+            let deviceController = RadiateurControlViewController()
+            deviceController.navigationItem.title = NSLocalizedString("radiateurs_deviceName_\(deviceControlViewModel.deviceName)", comment: "")
+            deviceController.viewModel = deviceControlViewModel
+            
+            self.navigationController?.pushViewController(deviceController, animated: true)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
