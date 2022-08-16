@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C917257628AB0D2800E7EE6C /* RoulantResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917257528AB0D2800E7EE6C /* RoulantResponse.swift */; };
 		C93F052A28999CCA00D0A6DF /* DeviceControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F052928999CCA00D0A6DF /* DeviceControlViewController.swift */; };
 		C93F052C28999CDF00D0A6DF /* DeviceControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F052B28999CDF00D0A6DF /* DeviceControlViewModel.swift */; };
 		C93F05412899C61A00D0A6DF /* DevicesListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F05402899C61A00D0A6DF /* DevicesListCollectionViewCell.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C917257528AB0D2800E7EE6C /* RoulantResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoulantResponse.swift; sourceTree = "<group>"; };
 		C93F052928999CCA00D0A6DF /* DeviceControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlViewController.swift; sourceTree = "<group>"; };
 		C93F052B28999CDF00D0A6DF /* DeviceControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceControlViewModel.swift; sourceTree = "<group>"; };
 		C93F05402899C61A00D0A6DF /* DevicesListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				C9F30EFD28A6E28800505A77 /* Response.swift */,
 				C9CBCBD628AA7CA600BEA7B3 /* LampeResponse.swift */,
 				C9F30EFB28A6E25D00505A77 /* Lampe.swift */,
+				C917257528AB0D2800E7EE6C /* RoulantResponse.swift */,
 				C9F30EF728A6E02500505A77 /* Roulant.swift */,
 				C9F30EF928A6E0A200505A77 /* Radiateur.swift */,
 				C9916D7F289DD8E400FFBEE6 /* User.swift */,
@@ -314,6 +317,7 @@
 				C9F30F0828A7EBA200505A77 /* RadiateurControlViewController.swift in Sources */,
 				C93F052A28999CCA00D0A6DF /* DeviceControlViewController.swift in Sources */,
 				C94886422899844F0043654D /* HomeScreenViewController.swift in Sources */,
+				C917257628AB0D2800E7EE6C /* RoulantResponse.swift in Sources */,
 				C93F052C28999CDF00D0A6DF /* DeviceControlViewModel.swift in Sources */,
 				C9F30EFE28A6E28800505A77 /* Response.swift in Sources */,
 				C93F05412899C61A00D0A6DF /* DevicesListCollectionViewCell.swift in Sources */,

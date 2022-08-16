@@ -48,8 +48,9 @@ class LampesListCollectionViewCellViewModel: LampesListCollectionViewCellViewMod
     }
     
     var isSwitcherOn: Bool {
-        if let cacheMode = DataManager.shared.getOnOffState(for: device.deviceName) {
-            return cacheMode
+        if UserDefaults.standard.object(forKey: device.deviceName) != nil {
+            let cacheMode = DataManager.shared.getOnOffState(for: device.deviceName)
+            return cacheMode!
         } else {
             var mode = Bool()
             

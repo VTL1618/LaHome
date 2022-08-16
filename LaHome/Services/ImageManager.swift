@@ -37,16 +37,16 @@ class ImageManager {
     }
 }
 
-extension UIImage {
-    var grayscaled: UIImage? {
-        let ciImage = CIImage(image: self)
-        let grayscale = ciImage?.applyingFilter("CIColorControls",
-                                                parameters: [ kCIInputSaturationKey: 0.0 ])
-        if let gray = grayscale {
-            return UIImage(ciImage: gray)
-        }
-        else {
-            return nil
-        }
-    }
-}
+//extension UIImage {
+//    var grayscaled: UIImage? {
+//        let ciImage = CIImage(image: self)
+//        let grayscale = ciImage?.applyingFilter("CIColorControls",
+//                                                parameters: [ kCIInputSaturationKey: 0.0 ])
+//        if let gray = grayscale {
+//            return UIImage(ciImage: gray)
+//        }
+//        else {
+//            return nil
+//        }
+//    }
+//}

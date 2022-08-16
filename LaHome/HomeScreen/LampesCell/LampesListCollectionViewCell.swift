@@ -9,7 +9,7 @@ import UIKit
 
 class LampesListCollectionViewCell: UICollectionViewCell {
     
-    static let reuseId = "lampesCell"
+    static let reuseId = "lampeCell"
     
     var viewModel: LampesListCollectionViewCellViewModelProtocol! {
         didSet {
@@ -89,8 +89,10 @@ class LampesListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setModeForDeviceImage() {
-        deviceImage.image = viewModel.isSwitcherOn
-        ? UIImage(named: viewModel.deviceImageName)
-        : ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
+        if viewModel.isSwitcherOn == true {
+            deviceImage.image = UIImage(named: viewModel.deviceImageName)
+        } else {
+            deviceImage.image = ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
+        }
     }
 }

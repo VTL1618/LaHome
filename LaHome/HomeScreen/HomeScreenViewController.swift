@@ -15,7 +15,7 @@ class HomeScreenViewController: UIViewController {
     var devicesListCollectionView: UICollectionView!
     var titleForDevicesList: UILabel!
     
-    private var sectionNow = Int()
+//    private var sectionNow = Int()
     
     private var viewModel: HomeScreenViewModelProtocol! {
         didSet {
@@ -25,8 +25,9 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-    var didSelectHandler: ((DeviceControlViewModelProtocol) -> ())?
+//    var didSelectHandler: ((DeviceControlViewModelProtocol) -> ())?
     var didSelectHandlerLampe: ((LampeControlViewModelProtocol) -> ())?
+    var didSelectHandlerRoulant: ((RoulantControlViewModelProtocol) -> ())?
     
     private let primaryColor = UIColor(
         red: 117/255,
@@ -126,8 +127,9 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         devicesListCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         
-        devicesListCollectionView.register(DevicesListCollectionViewCell.self, forCellWithReuseIdentifier: DevicesListCollectionViewCell.reuseId)
+//        devicesListCollectionView.register(DevicesListCollectionViewCell.self, forCellWithReuseIdentifier: DevicesListCollectionViewCell.reuseId)
         devicesListCollectionView.register(LampesListCollectionViewCell.self, forCellWithReuseIdentifier: LampesListCollectionViewCell.reuseId)
+        devicesListCollectionView.register(RoulantsListCollectionViewCell.self, forCellWithReuseIdentifier: RoulantsListCollectionViewCell.reuseId)
 
         devicesListCollectionView.dataSource = self
         devicesListCollectionView.delegate = self
@@ -153,38 +155,15 @@ extension HomeScreenViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
-            self.sectionNow = section
-            return viewModel.numberOfCells()
-        } else {
-            self.sectionNow = section
             return viewModel.numberOfCellsLampe()
+        } else {
+            return viewModel.numberOfCellsRoulant()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.section == 0 {
-            
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DevicesListCollectionViewCell.reuseId, for: indexPath) as! DevicesListCollectionViewCell
-            
-            cell.viewModel = viewModel.cellViewModel(at: indexPath)
-            
-            cell.backgroundColor = .white
-            cell.layer.cornerRadius = 15
-            cell.clipsToBounds = true
-            
-            didSelectHandler = { [weak self] device in
-                
-                let deviceController = DeviceControlViewController()
-                deviceController.navigationItem.title = device.deviceName
-                deviceController.viewModel = device
-                
-                self?.navigationController?.pushViewController(deviceController, animated: true)
-            }
-            
-            return cell
-            
-        } else {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LampesListCollectionViewCell.reuseId, for: indexPath) as! LampesListCollectionViewCell
             
@@ -197,6 +176,27 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             didSelectHandlerLampe = { [weak self] device in
                 
                 let deviceController = LampeControlViewController()
+                deviceController.navigationItem.title = device.deviceName
+                deviceController.viewModel = device
+                
+                self?.navigationController?.pushViewController(deviceController, animated: true)
+            }
+            
+            return cell
+            
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RoulantsListCollectionViewCell.reuseId, for: indexPath) as! RoulantsListCollectionViewCell
+            
+            cell.viewModel = viewModel.cellViewModelRoulant(at: indexPath)
+            
+            cell.backgroundColor = .white
+            cell.layer.cornerRadius = 15
+            cell.clipsToBounds = true
+            
+            didSelectHandlerRoulant = { [weak self] device in
+                
+                let deviceController = RoulantControlViewController()
                 deviceController.navigationItem.title = device.deviceName
                 deviceController.viewModel = device
                 
@@ -217,13 +217,12 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.section == 0 {
-            let deviceControlViewModel = viewModel.viewModelForSelectedCell(at: indexPath)
-    //        print(viewModel.devices[indexPath.item])
-            didSelectHandler?(deviceControlViewModel)
-        } else {
             let deviceControlViewModel = viewModel.viewModelForSelectedCellLampe(at: indexPath)
-    //        print(viewModel.devices[indexPath.item])
             didSelectHandlerLampe?(deviceControlViewModel)
+        } else {
+            let deviceControlViewModel = viewModel.viewModelForSelectedCellRoulant(at: indexPath)
+    //        print(viewModel.devices[indexPath.item])
+            didSelectHandlerRoulant?(deviceControlViewModel)
         }
         
     }
