@@ -59,8 +59,6 @@ class LampesListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(deviceImage)
         contentView.addSubview(deviceName)
         contentView.addSubview(deviceState)
-        
-        contentView.backgroundColor = .green
         contentView.clipsToBounds = true
     }
     

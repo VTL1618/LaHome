@@ -12,11 +12,7 @@ protocol LampeControlViewModelProtocol: AnyObject {
     var deviceImageName: String { get }
     var deviceModeForStatusBar: String { get }
     var deviceStateForStatusBar: String { get }
-    
     var slider: Float { get }
-//    var switcherIsHidden: Bool { get }
-//    var labelOnMode: Bool { get }
-//    var labelOffMode: Bool { get }
     var isSwitcherOn: Bool { get }
     var productType: String { get }
     var viewModelDidChange: ((LampeControlViewModelProtocol) -> Void)? { get set }
@@ -64,17 +60,10 @@ class LampeControlViewModel: LampeControlViewModelProtocol {
                 return cacheMode!
                 
             } else {
-//                var status = String()
                 
                 guard let state = device.intensity else { return "0" }
-                
-//                if let state = device.position {
-//                    status = "position: \(state)"
-//                }
-//                if let state = device.temperature {
-//                    status = "\(state)°"
-//                }
                 return "\(state)"
+            
             }
         } set {
             DataManager.shared.setSliderValue(for: String(device.id), with: newValue)
@@ -88,27 +77,6 @@ class LampeControlViewModel: LampeControlViewModelProtocol {
         }
         return Float(device.intensity ?? 0)
     }
-    
-//    var switcherIsHidden: Bool {
-//        if device.mode != nil {
-//            return false
-//        }
-//        return true
-//    }
-    
-//    var labelOnMode: Bool {
-//        if device.mode != nil {
-//            return false
-//        }
-//        return true
-//    }
-    
-//    var labelOffMode: Bool {
-//        if device.mode != nil {
-//            return false
-//        }
-//        return true
-//    }
     
     var isSwitcherOn: Bool {
         get {
@@ -151,16 +119,7 @@ class LampeControlViewModel: LampeControlViewModelProtocol {
     }
     
     func sliderChanged(to value: Float) {
-        
         let valueToInt = Int(value)
-//        deviceStateForStatusBar = "\(valueToInt)%"
         deviceStateForStatusBar = "\(valueToInt)"
-        
-//        if device.position != nil {
-//            deviceStateForStatusBar = "position: \(valueToInt)"
-//        }
-//        if device.temperature != nil {
-//            deviceStateForStatusBar = "\(valueToInt)°"
-//        }
     }
 }

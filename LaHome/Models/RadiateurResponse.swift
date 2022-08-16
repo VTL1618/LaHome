@@ -1,14 +1,15 @@
 //
-//  LampeResponse.swift
+//  RadiateurResponse.swift
 //  LaHome
 //
-//  Created by Vitaly Zubenko on 15.08.2022.
+//  Created by Vitaly Zubenko on 16.08.2022.
 //
 
 import Foundation
 
-struct LampeResponse: Decodable {
-    var devices: [Lampe]
+struct RadiateurResponse: Decodable {
+    
+    var devices: [Radiateur]
     
     enum CodingKeys: String, CodingKey {
         
@@ -20,7 +21,7 @@ struct LampeResponse: Decodable {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.devices = try container.decode([Lampe].self, forKey: .devices)
+        self.devices = try container.decode([Radiateur].self, forKey: .devices)
                 
     }
     

@@ -14,9 +14,7 @@ class HomeScreenViewController: UIViewController {
         
     var devicesListCollectionView: UICollectionView!
     var titleForDevicesList: UILabel!
-    
-//    private var sectionNow = Int()
-    
+        
     private var viewModel: HomeScreenViewModelProtocol! {
         didSet {
             viewModel.fetchDevices {
@@ -25,9 +23,9 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-//    var didSelectHandler: ((DeviceControlViewModelProtocol) -> ())?
     var didSelectHandlerLampe: ((LampeControlViewModelProtocol) -> ())?
     var didSelectHandlerRoulant: ((RoulantControlViewModelProtocol) -> ())?
+    var didSelectHandlerRadiateur: ((RadiateurControlViewModelProtocol) -> ())?
     
     private let primaryColor = UIColor(
         red: 117/255,
@@ -91,20 +89,13 @@ class HomeScreenViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-//        layout.collectionView?.backgroundColor = .clear
         layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
-//        layout.itemSize = CGSize(width: (view.frame.width - 16 - 32) / 3,
-//                                 height: (view.frame.width - 16 - 32) / 3)
         
         devicesListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         devicesListCollectionView.backgroundColor = .clear
         devicesListCollectionView.showsHorizontalScrollIndicator = false
         devicesListCollectionView.showsVerticalScrollIndicator = false
-//        devicesListCollectionView.contentInset = UIEdgeInsets(top: 0,
-//                                                              left: 16,
-//                                                              bottom: 0,
-//                                                              right: 16)
         
         devicesListCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -127,37 +118,30 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         devicesListCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         
-//        devicesListCollectionView.register(DevicesListCollectionViewCell.self, forCellWithReuseIdentifier: DevicesListCollectionViewCell.reuseId)
         devicesListCollectionView.register(LampesListCollectionViewCell.self, forCellWithReuseIdentifier: LampesListCollectionViewCell.reuseId)
         devicesListCollectionView.register(RoulantsListCollectionViewCell.self, forCellWithReuseIdentifier: RoulantsListCollectionViewCell.reuseId)
+        devicesListCollectionView.register(RadiateurListCollectionViewCell.self, forCellWithReuseIdentifier: RadiateurListCollectionViewCell.reuseId)
 
         devicesListCollectionView.dataSource = self
         devicesListCollectionView.delegate = self
     }
-    
-//    private func getDevices() {
-//        NetworkManager.shared.fetchData { devices in
-//            self.devices = devices
-//            DispatchQueue.main.async {
-//                self.devicesListCollectionView.reloadData()
-//            }
-//        }
-//    }
 }
 
 // MARK: - Collection View DataSource
 extension HomeScreenViewController: UICollectionViewDataSource {
    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if section == 0 {
             return viewModel.numberOfCellsLampe()
-        } else {
+        } else if section == 1 {
             return viewModel.numberOfCellsRoulant()
+        } else {
+            return viewModel.numberOfCellsRadiateur()
         }
     }
     
@@ -184,7 +168,7 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             
             return cell
             
-        } else {
+        } else if indexPath.section == 1 {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RoulantsListCollectionViewCell.reuseId, for: indexPath) as! RoulantsListCollectionViewCell
             
@@ -204,10 +188,28 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             }
             
             return cell
+            
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RadiateurListCollectionViewCell.reuseId, for: indexPath) as! RadiateurListCollectionViewCell
+            
+            cell.viewModel = viewModel.cellViewModelRadiateur(at: indexPath)
+            
+            cell.backgroundColor = .white
+            cell.layer.cornerRadius = 15
+            cell.clipsToBounds = true
+            
+            didSelectHandlerRadiateur = { [weak self] device in
+                
+                let deviceController = RadiateurControlViewController()
+                deviceController.navigationItem.title = device.deviceName
+                deviceController.viewModel = device
+                
+                self?.navigationController?.pushViewController(deviceController, animated: true)
+            }
+            
+            return cell
         }
-//        else {
-//            return cell
-//        }
     }
 }
  
@@ -219,10 +221,12 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
         if indexPath.section == 0 {
             let deviceControlViewModel = viewModel.viewModelForSelectedCellLampe(at: indexPath)
             didSelectHandlerLampe?(deviceControlViewModel)
-        } else {
+        } else if indexPath.section == 1 {
             let deviceControlViewModel = viewModel.viewModelForSelectedCellRoulant(at: indexPath)
-    //        print(viewModel.devices[indexPath.item])
             didSelectHandlerRoulant?(deviceControlViewModel)
+        } else {
+            let deviceControlViewModel = viewModel.viewModelForSelectedCellRadiateur(at: indexPath)
+            didSelectHandlerRadiateur?(deviceControlViewModel)
         }
         
     }
@@ -230,6 +234,9 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if indexPath.section == 0 {
+            return CGSize(width: (view.frame.width - 16 - 32) / 3,
+                   height: (view.frame.width - 16 - 32) / 3)
+        } else if indexPath.section == 1 {
             return CGSize(width: (view.frame.width - 16 - 32) / 3,
                    height: (view.frame.width - 16 - 32) / 3)
         } else {
@@ -242,6 +249,11 @@ extension HomeScreenViewController: UICollectionViewDelegateFlowLayout {
         
         if section == 0 {
             return UIEdgeInsets(top: 0,
+                                left: 16,
+                                bottom: 0,
+                                right: 16)
+        } else if section == 1 {
+            return UIEdgeInsets(top: 20,
                                 left: 16,
                                 bottom: 0,
                                 right: 16)

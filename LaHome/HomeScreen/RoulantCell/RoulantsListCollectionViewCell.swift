@@ -59,8 +59,6 @@ class RoulantsListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(deviceImage)
         contentView.addSubview(deviceName)
         contentView.addSubview(deviceState)
-        
-        contentView.backgroundColor = .green
         contentView.clipsToBounds = true
     }
     
@@ -89,10 +87,6 @@ class RoulantsListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setModeForDeviceImage() {
-//        if viewModel.isSwitcherOn == true {
-            deviceImage.image = UIImage(named: viewModel.deviceImageName)
-//        } else {
-//            deviceImage.image = ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
-//        }
+        deviceImage.image = UIImage(named: viewModel.deviceImageName)
     }
 }

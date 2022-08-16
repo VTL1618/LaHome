@@ -33,7 +33,6 @@ class LampeControlViewController: UIViewController {
     
     private var slider: CustomSlider = {
         let slider = CustomSlider()
-//        slider.transform = CGAffineTransform(rotationAngle: CGFloat(-Double.pi / 2))
         slider.minimumValue = 0
         slider.maximumValue = 100
         slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
@@ -43,7 +42,6 @@ class LampeControlViewController: UIViewController {
     private var switcher: UISwitch = {
         let switcher = UISwitch()
         switcher.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-//        switcher.isHidden = true
         
         switcher.addTarget(self, action: #selector(switcherPressed), for: .valueChanged)
         return switcher
@@ -55,7 +53,6 @@ class LampeControlViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.text = "—  On"
-//        label.isHidden = true
         return label
     }()
     
@@ -65,7 +62,6 @@ class LampeControlViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 20)
         label.textAlignment = .center
         label.text = "Off  —"
-//        label.isHidden = true
         return label
     }()
     
@@ -164,9 +160,6 @@ class LampeControlViewController: UIViewController {
         deviceState.text = "\(viewModel.deviceModeForStatusBar)\(viewModel.deviceStateForStatusBar)%"
         slider.value = viewModel.slider
         switcher.isOn = viewModel.isSwitcherOn
-//        switcher.isHidden = viewModel.switcherIsHidden
-//        labelOnMode.isHidden = viewModel.labelOnMode
-//        labelOffMode.isHidden = viewModel.labelOffMode
     }
     
     @objc func switcherPressed() {
@@ -178,9 +171,6 @@ class LampeControlViewController: UIViewController {
     }
     
     private func setModeForDeviceImage() {
-//        deviceImage.image = viewModel.isSwitcherOn
-//        ? UIImage(named: viewModel.deviceImageName)
-//        : ImageManager.shared.convertToGrayScale(image: UIImage(named: viewModel.deviceImageName)!)
         if viewModel.isSwitcherOn == true {
             deviceImage.image = UIImage(named: viewModel.deviceImageName)
         } else {

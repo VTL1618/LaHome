@@ -12,7 +12,6 @@ protocol RoulantsListCollectionViewCellViewModelProtocol {
     var deviceImageName: String { get }
     var productType: String { get }
     var deviceState: String { get }
-//    var isSwitcherOn: Bool { get }
     init(device: Roulant)
 }
 
@@ -38,34 +37,9 @@ class RoulantsListCollectionViewCellViewModel: RoulantsListCollectionViewCellVie
         if let state = device.position {
             return String(state)
         }
-//            if let state = device.position {
-//                return "position: \(state)"
-//            }
-//            if let state = device.temperature {
-//                return "\(state)°"
-//            }
         return "0"
     }
-    
-//    var isSwitcherOn: Bool {
-//        if UserDefaults.standard.object(forKey: device.deviceName) != nil {
-//            let cacheMode = DataManager.shared.getOnOffState(for: device.deviceName)
-//            return cacheMode!
-//        } else {
-//            var mode = Bool()
-//
-//            switch device.mode {
-//            case "ON":
-//                mode = true
-//            case "OFF":
-//                mode = false
-//            default:
-//                break
-//            }
-//            return mode
-//        }
-//    }
-    
+   
     private let device: Roulant
     
     required init(device: Roulant) {

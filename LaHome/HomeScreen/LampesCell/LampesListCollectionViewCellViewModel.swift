@@ -38,12 +38,6 @@ class LampesListCollectionViewCellViewModel: LampesListCollectionViewCellViewMod
         if let state = device.intensity {
             return String(state)
         }
-//            if let state = device.position {
-//                return "position: \(state)"
-//            }
-//            if let state = device.temperature {
-//                return "\(state)°"
-//            }
         return "0"
     }
     
