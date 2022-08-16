@@ -5,8 +5,6 @@
 //  Created by Vitaly Zubenko on 16.08.2022.
 //
 
-import Foundation
-
 struct RadiateurResponse: Decodable {
     
     var devices: [Radiateur]

@@ -23,10 +23,6 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-//    var didSelectHandlerLampe: ((LampeControlViewModelProtocol) -> ())?
-//    var didSelectHandlerRoulant: ((RoulantControlViewModelProtocol) -> ())?
-//    var didSelectHandlerRadiateur: ((RadiateurControlViewModelProtocol) -> ())?
-    
     private let primaryColor = UIColor(
         red: 117/255,
         green: 207/255,
@@ -157,15 +153,6 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true
             
-//            didSelectHandlerLampe = { [weak self] device in
-//
-//                let deviceController = LampeControlViewController()
-//                deviceController.navigationItem.title = NSLocalizedString("lampes_deviceName_\(device.deviceName)", comment: "")
-//                deviceController.viewModel = device
-//
-//                self?.navigationController?.pushViewController(deviceController, animated: true)
-//            }
-            
             return cell
             
         } else if indexPath.section == 1 {
@@ -178,15 +165,6 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true
             
-//            didSelectHandlerRoulant = { [weak self] device in
-//
-//                let deviceController = RoulantControlViewController()
-//                deviceController.navigationItem.title = NSLocalizedString("roulants_deviceName_\(device.deviceName)", comment: "")
-//                deviceController.viewModel = device
-//
-//                self?.navigationController?.pushViewController(deviceController, animated: true)
-//            }
-            
             return cell
             
         } else {
@@ -198,15 +176,6 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             cell.backgroundColor = .white
             cell.layer.cornerRadius = 15
             cell.clipsToBounds = true
-            
-//            didSelectHandlerRadiateur = { [weak self] device in
-//
-//                let deviceController = RadiateurControlViewController()
-//                deviceController.navigationItem.title = NSLocalizedString("radiateurs_deviceName_\(device.deviceName)", comment: "")
-//                deviceController.viewModel = device
-//
-//                self?.navigationController?.pushViewController(deviceController, animated: true)
-//            }
             
             return cell
         }

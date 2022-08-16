@@ -169,7 +169,6 @@ class RadiateurControlViewController: UIViewController {
     @objc func handleSliderChange() {
         let step: Float = 0.5
         let roundedValueByStep = roundf(slider.value / step) * step
-//        slider.value = roundedValueByStep
         viewModel.sliderChanged(to: roundedValueByStep)
     }
     
