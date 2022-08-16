@@ -17,7 +17,7 @@ class LampesListCollectionViewCell: UICollectionViewCell {
             deviceImage.image = UIImage(named: viewModel.deviceImageName)
             
             // Set device Name
-            deviceName.text = viewModel.deviceName
+            deviceName.text = NSLocalizedString("lampes_deviceName_\(viewModel.deviceName)", comment: "")
             
             // Set device State
             deviceState.text = "\(viewModel.deviceState)%"
@@ -46,7 +46,7 @@ class LampesListCollectionViewCell: UICollectionViewCell {
     
     private var deviceState: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.textAlignment = .left
         label.text = "On / Off"

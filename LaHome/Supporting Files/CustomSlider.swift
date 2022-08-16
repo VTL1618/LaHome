@@ -72,7 +72,7 @@ final class CustomSlider: UISlider {
         trackLayer.endPoint = .init(x: 1, y: 0.5)
         trackLayer.frame = .init(x: 0,
                                  y: frame.height / 2.5,
-                                 width: (frame.width * CGFloat(value / maximumValue)),
+                                 width: (frame.width * CGFloat((value - minimumValue) / (maximumValue - minimumValue))),
                                  height: frame.height)
         trackLayer.cornerRadius = trackLayer.frame.height / 4
         layer.insertSublayer(trackLayer, at: 1)

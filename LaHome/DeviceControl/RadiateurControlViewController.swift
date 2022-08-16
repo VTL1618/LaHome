@@ -33,8 +33,8 @@ class RadiateurControlViewController: UIViewController {
     
     private var slider: CustomSlider = {
         let slider = CustomSlider()
-        slider.minimumValue = 0
-        slider.maximumValue = 100
+        slider.minimumValue = 7
+        slider.maximumValue = 28
         slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
         return slider
     }()
@@ -167,7 +167,10 @@ class RadiateurControlViewController: UIViewController {
     }
     
     @objc func handleSliderChange() {
-        viewModel.sliderChanged(to: slider.value)
+        let step: Float = 0.5
+        let roundedValueByStep = roundf(slider.value / step) * step
+//        slider.value = roundedValueByStep
+        viewModel.sliderChanged(to: roundedValueByStep)
     }
     
     private func setModeForDeviceImage() {

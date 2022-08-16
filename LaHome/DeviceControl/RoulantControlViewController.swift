@@ -116,7 +116,7 @@ class RoulantControlViewController: UIViewController {
             setDeviceStateBar()
         }
         deviceImage.image = UIImage(named: viewModel.deviceImageName)
-        deviceState.text = "position: \(viewModel.deviceStateForStatusBar)"
+        deviceState.text = NSLocalizedString("RoulantControlViewController_Label_deviceState", comment: "") + "\(viewModel.deviceStateForStatusBar)"
         slider.value = viewModel.slider
     }
     
@@ -129,7 +129,7 @@ class RoulantControlViewController: UIViewController {
     }
     
     private func setDeviceStateBar() {
-        deviceState.text = "position: \(viewModel.deviceStateForStatusBar)"
+        deviceState.text = NSLocalizedString("RoulantControlViewController_Label_deviceState", comment: "") + "\(viewModel.deviceStateForStatusBar)"
     }
 }
 

@@ -1,0 +1,25 @@
+/* 
+  Localizible.strings
+  LaHome
+
+  Created by Vitaly Zubenko on 16.08.2022.
+  
+*/
+
+"HomeScreenViewController_Label_titleForDevicesList" = "Des Appareils";
+"RoulantControlViewController_Label_deviceState" = "la position: ";
+
+"lampes_deviceName_Lampe - Cuisine" = "Lampe - Cuisine";
+"lampes_deviceName_Lampe - Salon" = "Lampe - Salon";
+"lampes_deviceName_Lampe - Grenier" = "Lampe - Grenier";
+"lampes_deviceName_Lampe - Salle de bain" = "Lampe - Salle de bain";
+
+"roulants_deviceName_Volet roulant - Salon" = "Volet roulant - Salon";
+"roulants_deviceName_Volet roulant" = "Volet roulant";
+"roulants_deviceName_Volet roulant - Salle de bain" = "Volet roulant - Salle de bain";
+"roulants_deviceName_Volet roulant" = "Volet roulant";
+
+"radiateurs_deviceName_Radiateur - Chambre" = "Radiateur - Chambre";
+"radiateurs_deviceName_Radiateur - Salon" = "Radiateur - Salon";
+"radiateurs_deviceName_Radiateur - Salle de bain" = "Radiateur - Salle de bain";
+"radiateurs_deviceName_Radiateur - WC" = "Radiateur - WC";

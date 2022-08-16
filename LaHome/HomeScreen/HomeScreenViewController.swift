@@ -102,7 +102,7 @@ class HomeScreenViewController: UIViewController {
         titleForDevicesList = UILabel()
         titleForDevicesList.textColor = .white
         titleForDevicesList.font = UIFont(name: "avenir", size: 20)
-        titleForDevicesList.text = "Devices"
+        titleForDevicesList.text = NSLocalizedString("HomeScreenViewController_Label_titleForDevicesList", comment: "")
         titleForDevicesList.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(titleForDevicesList)
@@ -116,7 +116,7 @@ class HomeScreenViewController: UIViewController {
         devicesListCollectionView.topAnchor.constraint(equalTo: titleForDevicesList.bottomAnchor, constant: 0).isActive = true
         devicesListCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         devicesListCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        devicesListCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        devicesListCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
         devicesListCollectionView.register(LampesListCollectionViewCell.self, forCellWithReuseIdentifier: LampesListCollectionViewCell.reuseId)
         devicesListCollectionView.register(RoulantsListCollectionViewCell.self, forCellWithReuseIdentifier: RoulantsListCollectionViewCell.reuseId)
@@ -160,7 +160,7 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             didSelectHandlerLampe = { [weak self] device in
                 
                 let deviceController = LampeControlViewController()
-                deviceController.navigationItem.title = device.deviceName
+                deviceController.navigationItem.title = NSLocalizedString("lampes_deviceName_\(device.deviceName)", comment: "")
                 deviceController.viewModel = device
                 
                 self?.navigationController?.pushViewController(deviceController, animated: true)
@@ -181,7 +181,7 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             didSelectHandlerRoulant = { [weak self] device in
                 
                 let deviceController = RoulantControlViewController()
-                deviceController.navigationItem.title = device.deviceName
+                deviceController.navigationItem.title = NSLocalizedString("roulants_deviceName_\(device.deviceName)", comment: "")
                 deviceController.viewModel = device
                 
                 self?.navigationController?.pushViewController(deviceController, animated: true)
@@ -202,7 +202,7 @@ extension HomeScreenViewController: UICollectionViewDataSource {
             didSelectHandlerRadiateur = { [weak self] device in
                 
                 let deviceController = RadiateurControlViewController()
-                deviceController.navigationItem.title = device.deviceName
+                deviceController.navigationItem.title = NSLocalizedString("radiateurs_deviceName_\(device.deviceName)", comment: "")
                 deviceController.viewModel = device
                 
                 self?.navigationController?.pushViewController(deviceController, animated: true)

@@ -1,0 +1,25 @@
+/* 
+  Localizible.strings
+  LaHome
+
+  Created by Vitaly Zubenko on 16.08.2022.
+  
+*/
+
+"HomeScreenViewController_Label_titleForDevicesList" = "Устройства";
+"RoulantControlViewController_Label_deviceState" = "положение: ";
+
+"lampes_deviceName_Lampe - Cuisine" = "Лампа - Кухня";
+"lampes_deviceName_Lampe - Salon" = "Лампа - Гостинная";
+"lampes_deviceName_Lampe - Grenier" = "Лампа - Чердак";
+"lampes_deviceName_Lampe - Salle de bain" = "Лампа - Ванная комната";
+
+"roulants_deviceName_Volet roulant - Salon" = "Рольставни - Гостиная";
+"roulants_deviceName_Volet roulant" = "Рольставни";
+"roulants_deviceName_Volet roulant - Salle de bain" = "Рольставни - Ванная комната";
+"roulants_deviceName_Volet roulant" = "Рольставни";
+
+"radiateurs_deviceName_Radiateur - Chambre" = "Радиатор - Спальня";
+"radiateurs_deviceName_Radiateur - Salon" = "Радиатор - Гостиная";
+"radiateurs_deviceName_Radiateur - Salle de bain" = "Радиатор - Ванная комната";
+"radiateurs_deviceName_Radiateur - WC" = "Радиатор - Ватерклозет";

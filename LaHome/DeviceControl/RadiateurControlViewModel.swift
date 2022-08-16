@@ -12,7 +12,6 @@ protocol RadiateurControlViewModelProtocol: AnyObject {
     var deviceImageName: String { get }
     var deviceModeForStatusBar: String { get }
     var deviceStateForStatusBar: String { get }
-    
     var slider: Float { get }
     var isSwitcherOn: Bool { get }
     var productType: String { get }
@@ -121,7 +120,6 @@ class RadiateurControlViewModel: RadiateurControlViewModelProtocol {
     }
     
     func sliderChanged(to value: Float) {
-        let valueToInt = Int(value)
-        deviceStateForStatusBar = "\(valueToInt)"
+        deviceStateForStatusBar = "\(value)"
     }
 }
